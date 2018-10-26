@@ -1,0 +1,16 @@
+---
+- name: Install company package
+  hosts: all
+  tasks:
+    - name: Remove package on RedHat Family
+      when: ansible_os_family == "RedHAt"
+      package:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - telnet
+        - bind-utils
+        - lftp
+        - elinks
+        - vsftpd
+        - httpd
