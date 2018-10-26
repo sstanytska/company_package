@@ -4,9 +4,9 @@
   tasks:
     - name: Delete Group to RedHat Family
       when: ansible_os_family == "RedHAt"
-      state: absent
       group:
         name: "{{ item }}"
+        state: absent
       with_items:
         - managers
         - sale
