@@ -1,0 +1,16 @@
+---
+- name: Install company package
+  hosts: all
+  tasks:
+    - name: Add User to RedHat Family
+      when: ansible_os_family == "RedHAt"
+      user:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - bob
+        - ben
+        - lola
+        - lisa
+        - brayn
+        - oliver
