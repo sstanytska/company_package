@@ -1,8 +1,8 @@
 ---
-- name: Install company package
+- name: Delete company package
   hosts: all
   tasks:
-    - name: Add User to RedHat Family
+    - name: Delete User to RedHat Family
       when: ansible_os_family == "RedHAt"
       user:
         name: "{{ item }}"
