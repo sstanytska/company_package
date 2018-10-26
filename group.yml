@@ -1,0 +1,16 @@
+---
+- name: Install company package
+  hosts: all
+  tasks:
+    - name: Add Group to RedHat Family
+      when: ansible_os_family == "RedHAt"
+      group:
+        name: "{{ item }}"
+      with_items:
+        - managers
+        - sale
+        - marketing
+        - IT
+        - NOC
+        - admins
+
