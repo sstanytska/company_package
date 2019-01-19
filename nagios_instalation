@@ -1,0 +1,41 @@
+---
+- name: Install ncpa on CentOS and Debian
+  hosts: all
+  tasks:
+# Installation ncpa on CentOS  
+  - name: Creating repository for ncpa on CentOS
+    when: ansible_os_family == "CentOS"
+    command: "rpm -Uvh http://repo.nagios.com/nagios/7/nagios-repo-7-3.el7.noarch.rpm"
+  - name: Installation ncpa on CentOS
+    when: ansible_os_family == "CentOS"
+    command: "yum install ncpa -y"
+  - name: Create configuration file
+    when: ansible_os_family == "CentOS"
+    lineinfile:
+      path: /usr/local/ncpa/etc/ncpa.cfg
+      regexp: 'community_string ='
+      line: 'community_string = zX8fLY$gBUYwc6G'
+  - name: Restarting ncpa on CentOS
+    when: ansible_os_family == "CentOS"
+    command: "systemctl restart ncpa_listener"
+
+    
+
+
+
+# Installation ncpa on Debian 
+  - name: Creating repository for ncpa on Debian
+    when: ansible_distribution == "Debian"
+    command: "wget https://assets.nagios.com/downloads/ncpa/ncpa-latest.d9.amd64.deb"
+  - name: Installation ncpa on Debian
+    when: ansible_distribution == "Debian"
+    command: "dpkg -i ./ncpa-latest.d9.amd64.deb"
+  - name: Create configuration file
+    when: ansible_distribution == "Debian"
+    lineinfile:
+      path: /usr/local/ncpa/etc/ncpa.cfg
+      regexp: 'community_string ='
+      line: 'community_string = zX8fLY$gBUYwc6G'
+  - name: Restarting ncpa on Debian
+    when: ansible_distribution == "Debian"
+    command: "systemctl restart ncpa_listener"
